@@ -1,4 +1,7 @@
 <?php
+include('Product.php');
+include('contact.php');
+include('rigister.php');
 if(! class_exists('DB')) {
 	class DB{
 		var $dbc; // class property

@@ -5,21 +5,22 @@ include('DB.php');
 
 $dbc = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 if( isset( $_POST['submit'] ) ){
-$sql = "INSERT INTO users(fname, lname,email,comment)
-		VALUES('{$_POST['fname']}', '{$_POST['lname']}','{$_POST['email']}','{$_POST['comment']}')";
-
 $db = new DB();
+	  $contact = array(
+        "fname" => "{$_POST['fname']}",
+        "lname" => "{$_POST['lname']}",
+        "email" => "{$_POST['email']}",
+        "comment" => "{$_POST['comment']}",
+        
 
-$result = $db -> execute( $sql );
-unset( $db );
-if( $result ){	
-	$alert = alert('با موفقیت ثبت شد!', 'success');
+    );
+	  contact::add($contact);
+    unset($db);
 
-
-}else{
-	$alert= alert('Unfortunately, the new record was not set','danger') . $sql . "<br>" . $dbc->error;
+ 
+    $alerts = alerts();
 }
-}
+
 ?>
 <html>
 <head>
@@ -42,8 +43,8 @@ if( $result ){
 </head>
 <body>
 		<?php
-				if( isset($alert) )
-					echo $alert;
+				if( isset($alerts) )
+					echo $alerts;
 			?>
 <div class="container contact">
     <div class="row">

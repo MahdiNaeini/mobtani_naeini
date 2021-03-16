@@ -5,22 +5,23 @@ include('DB.php');
 
 $dbc = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 if( isset( $_POST['submit'] ) ){
-$sql = "INSERT INTO pro (name, last_name, Gender, email, number, exp) 
-	VALUES('{$_POST['first_name']}', '{$_POST['last_name']}', '{$_POST['gender']}', '{$_POST['email']}', '{$_POST['phone']}', '{$_POST['explain']}')";
-
 $db = new DB();
+	  $product = array(
+        "name" => "{$_POST['first_name']}",
+        "last_name" => "{$_POST['last_name']}",
+        "Gender" => "{$_POST['gender']}",
+        "email" => "{$_POST['email']}",
+        "number" => "{$_POST['phone']}",
+        "exp" => "{$_POST['explain']}",
+        
 
-$result = $db -> execute( $sql );
-unset( $db );
-if( $result ){	
-	$alert = alert('با موفقیت ثبت شد!', 'success');
+    );
+	  Product::add($product);
+    unset($db);
 
-
-}else{
-	$alert= alert('Unfortunately, the new record was not set','danger') . $sql . "<br>" . $dbc->error;
+ 
+    $alerts = alerts();
 }
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -75,8 +76,8 @@ if( $result ){
 
 <body>
 	<?php
-				if( isset($alert) )
-					echo $alert;
+				if( isset($alerts) )
+					echo $alerts;
 			?>
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
